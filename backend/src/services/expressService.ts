@@ -1,15 +1,14 @@
-import express, { Express } from 'express'
+import express, { Express } from 'express';
+import spotifyRouter from '../routers/spotifyRouter.js';
 
 export const createServer = async () => {
-	const app = express()
+	const app = express();
 
-	setupRoutes(app)
+	setupRoutes(app);
 
-	return app
-}
+	return app;
+};
 
 const setupRoutes = async (app: Express) => {
-	app.get('/', (req, res) => {
-		res.send('Hello World!')
-	})
-}
+	app.use('/spotify', spotifyRouter);
+};
