@@ -1,5 +1,8 @@
 import { Router } from 'express';
-import { handleSpotifyCallback } from '../services/spotifyService.js';
+import {
+	handleSpotifyCallback,
+	searchSong
+} from '../services/spotifyService.js';
 
 const spotifyRouter = Router();
 
@@ -11,6 +14,11 @@ spotifyRouter.get('/callback', async (req, res) => {
 		console.error(error);
 		res.status(500).send('Failed to get access token');
 	}
+});
+
+spotifyRouter.get('/crab', async (req, res) => {
+	const rave = await searchSong('crab rave');
+	res.status(200).json(rave);
 });
 
 export default spotifyRouter;

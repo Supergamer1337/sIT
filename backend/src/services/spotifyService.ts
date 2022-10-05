@@ -40,17 +40,8 @@ const scopes = [
 
 const spotifyApi = new SpotifyWebApi();
 
-export const searchSong = (songName: string) => {
-	spotifyApi.createAuthorizeURL(scopes, 'aaaaaaaaaaaaaah!');
-
-	return spotifyApi.searchTracks(songName).then(
-		(data) => {
-			console.log(data);
-		},
-		(err) => {
-			console.error(err);
-		}
-	);
+export const searchSong = async (songName: string) => {
+	return await spotifyApi.searchTracks(songName);
 };
 
 export const setAccessToken = (accessToken: string) => {
