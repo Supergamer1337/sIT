@@ -1,4 +1,5 @@
 import SpotifyWebApi from 'spotify-web-api-node';
+import fs from 'fs';
 
 /*
   * Scopes available
@@ -48,20 +49,46 @@ export const setAccessToken = (accessToken: string) => {
 	spotifyApi.setAccessToken(accessToken);
 };
 
-export const getSpotifyAuthString = () => {
-	spotifyApi.setClientId(process.env.SPOTIFY_CLIENT_ID);
-	spotifyApi.setClientSecret(process.env.SPOTIFY_CLIENT_SECRET);
-	spotifyApi.setRedirectURI(process.env.SPOTIFY_REDIRECT_URI);
-	return spotifyApi.createAuthorizeURL(scopes, 'aaaaaaaaaaaaaah!');
+export const readSpotifyAuth = async () => {
+	if (fs.existsSync('token.json')) {
+		const auth = await fs.readFileSync('token.json');
+		const authJson = JSON.parse(auth.toString());
+		setAccessAndRefreshTokens(authJson.access_token, authJson.refresh_token);
+	} else {
+		console.log('No token found.');
+		console.log(`Authorize the app using:\n${getSpotifyAuthString()}`);
+	}
 };
 
 export const handleSpotifyCallback = async (code: string) => {
 	const data = await spotifyApi.authorizationCodeGrant(code);
 	if (data.statusCode == 200) {
-		spotifyApi.setAccessToken(data.body.access_token);
-		spotifyApi.setRefreshToken(data.body.refresh_token);
+		setAccessAndRefreshTokens(data.body.access_token, data.body.refresh_token);
+		fs.writeFileSync('token.json', JSON.stringify(data.body));
 		return;
 	}
 	console.error(data.statusCode, data.body);
 	throw new Error('Failed to get access token');
+};
+
+const setAccessAndRefreshTokens = async (
+	access_token: string,
+	refresh_token: string
+) => {
+	spotifyApi.setAccessToken(access_token);
+	spotifyApi.setRefreshToken(refresh_token);
+};
+
+const getSpotifyAuthString = () => {
+	if (
+		!process.env.SPOTIFY_CLIENT_ID ||
+		!process.env.SPOTIFY_CLIENT_SECRET ||
+		!process.env.SPOTIFY_REDIRECT_URI
+	)
+		throw new Error('No spotify app credentials provided');
+
+	spotifyApi.setClientId(process.env.SPOTIFY_CLIENT_ID);
+	spotifyApi.setClientSecret(process.env.SPOTIFY_CLIENT_SECRET);
+	spotifyApi.setRedirectURI(process.env.SPOTIFY_REDIRECT_URI);
+	return spotifyApi.createAuthorizeURL(scopes, 'aaaaaaaaaaaaaah!');
 };
