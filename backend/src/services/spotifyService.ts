@@ -92,3 +92,23 @@ const getSpotifyAuthString = () => {
 	spotifyApi.setRedirectURI(process.env.SPOTIFY_REDIRECT_URI);
 	return spotifyApi.createAuthorizeURL(scopes, 'aaaaaaaaaaaaaah!');
 };
+
+export const getDevices = async () => {
+	return await spotifyApi.getMyDevices();
+};
+const setDevice = async () => {
+	let deviceID: string | null = '';
+	await getDevices().then((devices) => {
+		deviceID = devices.body.devices[0].id;
+	});
+	if (!deviceID) return;
+	await spotifyApi.transferMyPlayback([deviceID]);
+};
+
+export const playSong = async (songName: string) => {
+	const results = await searchSong(songName);
+	if (results === undefined) return;
+	const songURI = results.body.tracks.items[0].uri;
+	await spotifyApi.play({ uris: [songURI] });
+	await setDevice();
+};
