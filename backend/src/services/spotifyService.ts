@@ -44,6 +44,12 @@ const spotifyApi = new SpotifyWebApi();
 export const searchSong = async (songName: string) => {
 	return await spotifyApi.searchTracks(songName);
 };
+export const searchAlbum = async (albumName: string) => {
+	return await spotifyApi.searchAlbums(albumName);
+};
+export const searchArtist = async (artistName: string) => {
+	return await spotifyApi.searchArtists(artistName);
+};
 
 export const setAccessToken = (accessToken: string) => {
 	spotifyApi.setAccessToken(accessToken);
@@ -111,4 +117,23 @@ export const playSong = async (songName: string) => {
 	const songURI = results.body.tracks.items[0].uri;
 	await spotifyApi.play({ uris: [songURI] });
 	await setDevice();
+};
+
+export const playAlbum = async (albumName: string) => {
+	const results = await searchAlbum(albumName);
+	if (results === undefined) return;
+	const albumURI = results.body.albums.items[0].uri;
+	await spotifyApi.play({ context_uri: albumURI });
+	await setDevice();
+	return results;
+};
+
+export const playArtist = async (albumName: string) => {
+	const results = await searchArtist(albumName);
+	if (results === undefined) return;
+	const albumURI = results.body.artists.items[0].uri;
+	await spotifyApi.setShuffle(true);
+	await spotifyApi.play({ context_uri: albumURI });
+	//await setDevice();
+	return results;
 };
