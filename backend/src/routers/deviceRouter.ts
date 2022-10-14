@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { getDevices } from '../services/spotifyService.js';
+import { getDevices } from '../services/deviceService.js';
 
 const deviceRouter = Router();
 

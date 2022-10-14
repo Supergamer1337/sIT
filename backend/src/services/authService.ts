@@ -1,4 +1,4 @@
-import SpotifyWebApi from 'spotify-web-api-node';
+import { spotifyApi } from './apiService';
 import fs from 'fs';
 
 /*
@@ -39,25 +39,9 @@ const scopes = [
 	'app-remote-control'
 ];
 
-const spotifyApi = new SpotifyWebApi();
-
-export const searchSong = async (songName: string) => {
-	return await spotifyApi.searchTracks(songName);
-};
-export const searchAlbum = async (albumName: string) => {
-	return await spotifyApi.searchAlbums(albumName);
-};
-export const searchArtist = async (artistName: string) => {
-	return await spotifyApi.searchArtists(artistName);
-};
-
-export const setAccessToken = (accessToken: string) => {
-	spotifyApi.setAccessToken(accessToken);
-};
-
 export const readSpotifyAuth = async () => {
 	if (fs.existsSync('token.json')) {
-		const auth = await fs.readFileSync('token.json');
+		const auth = fs.readFileSync('token.json');
 		const authJson = JSON.parse(auth.toString());
 		if (authJson.expires_in + authJson.timestamp < Date.now())
 			return setAccessAndRefreshTokens(
@@ -83,14 +67,6 @@ export const handleSpotifyCallback = async (code: string) => {
 	throw new Error('Failed to get access token');
 };
 
-const setAccessAndRefreshTokens = async (
-	access_token: string,
-	refresh_token: string
-) => {
-	spotifyApi.setAccessToken(access_token);
-	spotifyApi.setRefreshToken(refresh_token);
-};
-
 const getSpotifyAuthString = () => {
 	if (
 		!process.env.SPOTIFY_CLIENT_ID ||
@@ -105,42 +81,10 @@ const getSpotifyAuthString = () => {
 	return spotifyApi.createAuthorizeURL(scopes, 'aaaaaaaaaaaaaah!');
 };
 
-export const getDevices = async () => {
-	return await spotifyApi.getMyDevices();
-};
-const setDevice = async () => {
-	let deviceID: string | null = '';
-	await getDevices().then((devices) => {
-		deviceID = devices.body.devices[0].id;
-	});
-	if (!deviceID) return;
-	await spotifyApi.transferMyPlayback([deviceID]);
-};
-
-export const playSong = async (songName: string) => {
-	const results = await searchSong(songName);
-	if (results === undefined) return;
-	const songURI = results?.body?.tracks?.items[0].uri;
-	if (songURI === undefined) return;
-	await spotifyApi.play({ uris: [songURI] });
-	await setDevice();
-};
-
-export const playAlbum = async (albumName: string) => {
-	const results = await searchAlbum(albumName);
-	if (results === undefined) return;
-	const albumURI = results.body.albums.items[0].uri;
-	await spotifyApi.play({ context_uri: albumURI });
-	await setDevice();
-	return results;
-};
-
-export const playArtist = async (albumName: string) => {
-	const results = await searchArtist(albumName);
-	if (results === undefined) return;
-	const albumURI = results.body.artists.items[0].uri;
-	await spotifyApi.setShuffle(true);
-	await spotifyApi.play({ context_uri: albumURI });
-	//await setDevice();
-	return results;
+const setAccessAndRefreshTokens = async (
+	access_token: string,
+	refresh_token: string
+) => {
+	spotifyApi.setAccessToken(access_token);
+	spotifyApi.setRefreshToken(refresh_token);
 };

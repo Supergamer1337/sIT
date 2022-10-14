@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { searchSong } from '../services/spotifyService.js';
+import { searchSong } from '../services/searchService.js';
 
 const searchRouter = Router();
 

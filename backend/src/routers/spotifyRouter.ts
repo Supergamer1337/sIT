@@ -1,8 +1,6 @@
 import { Router } from 'express';
-import {
-	handleSpotifyCallback,
-	searchSong
-} from '../services/spotifyService.js';
+import { searchSong } from '../services/searchService';
+import { handleSpotifyCallback } from '../services/authService.js';
 
 const spotifyRouter = Router();
 

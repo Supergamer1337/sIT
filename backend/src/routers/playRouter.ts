@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { playAlbum, playArtist, playSong } from '../services/spotifyService.js';
+import { playAlbum, playArtist, playSong } from '../services/playService.js';
 
 const playRouter = Router();
 
