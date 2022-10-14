@@ -59,18 +59,24 @@ export const readSpotifyAuth = async () => {
 	if (fs.existsSync('token.json')) {
 		const auth = await fs.readFileSync('token.json');
 		const authJson = JSON.parse(auth.toString());
-		setAccessAndRefreshTokens(authJson.access_token, authJson.refresh_token);
-	} else {
-		console.log('No token found.');
-		console.log(`Authorize the app using:\n${getSpotifyAuthString()}`);
+		if (authJson.expires_in + authJson.timestamp < Date.now())
+			return setAccessAndRefreshTokens(
+				authJson.access_token,
+				authJson.refresh_token
+			);
 	}
+	console.log('No token found.');
+	console.log(`Authorize the app using:\n${getSpotifyAuthString()}`);
 };
 
 export const handleSpotifyCallback = async (code: string) => {
 	const data = await spotifyApi.authorizationCodeGrant(code);
 	if (data.statusCode == 200) {
 		setAccessAndRefreshTokens(data.body.access_token, data.body.refresh_token);
-		fs.writeFileSync('token.json', JSON.stringify(data.body));
+		fs.writeFileSync(
+			'token.json',
+			JSON.stringify({ ...data.body, timestamp: Date.now() })
+		);
 		return;
 	}
 	console.error(data.statusCode, data.body);
@@ -114,7 +120,8 @@ const setDevice = async () => {
 export const playSong = async (songName: string) => {
 	const results = await searchSong(songName);
 	if (results === undefined) return;
-	const songURI = results.body.tracks.items[0].uri;
+	const songURI = results?.body?.tracks?.items[0].uri;
+	if (songURI === undefined) return;
 	await spotifyApi.play({ uris: [songURI] });
 	await setDevice();
 };

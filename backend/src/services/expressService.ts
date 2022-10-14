@@ -11,8 +11,8 @@ export const createServer = async () => {
 };
 
 const setupRoutes = async (app: Express) => {
-	app.use('/spotify', spotifyRouter);
-	app.use('/search', searchRouter);
-	app.use('/device', deviceRouter);
-	app.use('/play', playRouter);
+	app.use('/api/spotify', spotifyRouter);
+	app.use('/api/search', searchRouter);
+	app.use('/api/device', deviceRouter);
+	app.use('/api/play', playRouter);
 };
