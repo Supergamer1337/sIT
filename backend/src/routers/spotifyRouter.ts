@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { searchSong } from '../services/searchService';
+import { searchSong } from '../services/searchService.js';
 import { handleSpotifyCallback } from '../services/authService.js';
 
 const spotifyRouter = Router();

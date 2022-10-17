@@ -1,4 +1,4 @@
-import { spotifyApi } from './apiService';
+import { spotifyApi } from './apiService.js';
 
 export const searchSong = async (songName: string) => {
 	return spotifyApi.searchTracks(songName);

@@ -1,4 +1,4 @@
-import { spotifyApi } from './apiService';
+import { spotifyApi } from './apiService.js';
 
 export const getDevices = async () => {
 	return spotifyApi.getMyDevices();

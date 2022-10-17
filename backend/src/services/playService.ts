@@ -1,11 +1,6 @@
-import SpotifyWebApi from 'spotify-web-api-node';
-import fs from 'fs';
-import { setDevice } from './deviceService';
-import { spotifyApi } from './apiService';
-import dotenv from 'dotenv';
-import { searchAlbum, searchArtist, searchSong } from './searchService';
-
-dotenv.config();
+import { setDevice } from './deviceService.js';
+import { spotifyApi } from './apiService.js';
+import { searchAlbum, searchArtist, searchSong } from './searchService.js';
 
 export const playSong = async (songName: string) => {
 	const results = await searchSong(songName);

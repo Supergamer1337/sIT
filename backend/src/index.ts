@@ -1,6 +1,6 @@
 import { createServer } from './services/expressService.js';
+import { readSpotifyAuth } from './services/authService.js';
 import { config } from 'dotenv';
-import { readSpotifyAuth } from './services/playService.js';
 config();
 
 const app = await createServer();

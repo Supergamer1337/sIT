@@ -1,4 +1,4 @@
-import { spotifyApi } from './apiService';
+import { spotifyApi } from './apiService.js';
 import fs from 'fs';
 
 /*
