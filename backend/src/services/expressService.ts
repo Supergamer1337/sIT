@@ -7,6 +7,7 @@ import spotifyRouter from '../routers/spotifyRouter.js';
 
 export const createServer = async () => {
 	const app = express();
+	setupGlobalMiddleware(app);
 	setupRoutes(app);
 	return app;
 };
@@ -17,4 +18,9 @@ const setupRoutes = async (app: Express) => {
 	app.use('/api/device', deviceRouter);
 	app.use('/api/play', playRouter);
 	app.use('/api/control', controlRouter);
+};
+
+const setupGlobalMiddleware = async (app: Express) => {
+	app.use(express.urlencoded({ extended: true }));
+	app.use(express.json());
 };

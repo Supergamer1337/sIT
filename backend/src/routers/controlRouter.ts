@@ -3,6 +3,7 @@ import {
 	nextSong,
 	pausePlayback,
 	previousSong,
+	setVolume,
 	startPlayback
 } from '../services/controlService.js';
 
@@ -41,6 +42,20 @@ controlRouter.get('/previous', async (req, res) => {
 		res.status(200).json({ message: 'Repeat previous' });
 	} catch (error) {
 		res.status(500).json({ message: 'Failed to skip to previous song' });
+	}
+});
+
+controlRouter.post('/volume', async (req, res) => {
+	const { volume } = req.body;
+	if (volume === undefined)
+		return res.status(400).json({ message: 'Volume not specified' });
+	if (typeof volume != 'number')
+		return res.status(400).json({ message: 'Volume needs to be a number' });
+	try {
+		setVolume(volume);
+		res.status(200).json({ message: 'Volume set to ' + volume });
+	} catch (error) {
+		res.status(500).json({ message: 'Failed to set volume' });
 	}
 });
 

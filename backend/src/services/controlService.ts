@@ -15,3 +15,9 @@ export const nextSong = async () => {
 export const previousSong = async () => {
 	await spotifyApi.skipToPrevious();
 };
+
+export const setVolume = async (volume: number) => {
+	if (volume > 100) volume = 100;
+	if (volume < 0) volume = 0;
+	await spotifyApi.setVolume(volume);
+};

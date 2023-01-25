@@ -12,4 +12,5 @@ searchRouter.get('/song/:query', async (req, res) => {
 	res.status(200).json(results);
 });
 
+//Should add for playlists, artists, and albums too
 export default searchRouter;
