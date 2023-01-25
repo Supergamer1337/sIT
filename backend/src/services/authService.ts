@@ -1,4 +1,5 @@
 import fs from 'fs';
+import { setInterval } from 'timers/promises';
 import { spotifyApi } from './apiService.js';
 
 /*
@@ -87,4 +88,41 @@ const setAccessAndRefreshTokens = async (
 ) => {
 	spotifyApi.setAccessToken(access_token);
 	spotifyApi.setRefreshToken(refresh_token);
+
+	periodicallyRefreshAccessToken();
+};
+
+const periodicallyRefreshAccessToken = async () => {
+	let tries = 0;
+	const fifteenMinutes = 1000 * 60 * 15;
+	setInterval(fifteenMinutes, async () => {
+		tries = await refreshAccessToken(tries);
+		if (tries > 4) {
+			process.exit(1);
+		}
+	});
+};
+
+const refreshAccessToken = async (prevTries: number) => {
+	const data = await spotifyApi.refreshAccessToken();
+
+	if (data.statusCode == 200) {
+		spotifyApi.setAccessToken(data.body.access_token);
+
+		if (data.body.refresh_token) {
+			spotifyApi.setRefreshToken(data.body.refresh_token);
+		} else {
+			console.warn("Couldn't set new refresh token");
+		}
+
+		fs.writeFileSync(
+			'token.json',
+			JSON.stringify({ ...data.body, timestamp: Date.now() })
+		);
+
+		return 0;
+	}
+
+	console.error("Couldn't refresh access token", data.statusCode, data.body);
+	return prevTries + 1;
 };
