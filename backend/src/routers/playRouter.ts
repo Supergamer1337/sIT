@@ -8,28 +8,44 @@ import {
 
 const playRouter = new ErrorHandlingRouter();
 
-playRouter.get('/song/:songName', async (req, res) => {
-	const { songName } = req.params;
-	await playSong(songName);
-	res.send('Now playing: ' + songName);
+playRouter.post('/song', async (req, res) => {
+	const { songURI } = req.body;
+
+	if (!songURI || typeof songURI !== 'string')
+		return res.status(400).json({ errors: ['No song URI provided'] });
+
+	await playSong(songURI);
+	res.status(200).json({ message: 'Sent command to play song' });
 });
 
-playRouter.get('/album/:albumName', async (req, res) => {
-	const { albumName } = req.params;
-	const album = await playAlbum(albumName);
-	res.status(200).json(album);
+playRouter.post('/album', async (req, res) => {
+	const { albumURI } = req.body;
+
+	if (!albumURI || typeof albumURI !== 'string')
+		return res.status(400).json({ errors: ['No album URI provided'] });
+
+	await playAlbum(albumURI);
+	res.status(200).json({ message: 'Sent command to play album' });
 });
 
-playRouter.get('/artist/:artistName', async (req, res) => {
-	const { artistName } = req.params;
-	const artist = await playArtist(artistName);
-	res.status(200).json(artist);
+playRouter.post('/artist', async (req, res) => {
+	const { artistURI } = req.body;
+
+	if (!artistURI || typeof artistURI !== 'string')
+		return res.status(400).json({ errors: ['No artist URI provided'] });
+
+	await playArtist(artistURI);
+	res.status(200).json({ message: 'Sent command to play artist' });
 });
 
-playRouter.get('/playlist/:playlistName', async (req, res) => {
-	const { playlistName } = req.params;
-	const artist = await playPlaylist(playlistName);
-	res.status(200).json(artist);
+playRouter.post('/playlist', async (req, res) => {
+	const { playlistURI } = req.params;
+
+	if (!playlistURI || typeof playlistURI !== 'string')
+		return res.status(400).json({ errors: ['No playlist URI provided'] });
+
+	await playPlaylist(playlistURI);
+	res.status(200).json({ message: 'Sent command to play playlist' });
 });
 
 export default playRouter;
