@@ -13,11 +13,11 @@ export const createServer = async () => {
 };
 
 const setupRoutes = async (app: Express) => {
-	app.use('/api/spotify', spotifyRouter);
-	app.use('/api/search', searchRouter);
-	app.use('/api/device', deviceRouter);
-	app.use('/api/play', playRouter);
-	app.use('/api/control', controlRouter);
+	app.use('/api/spotify', spotifyRouter.getRouter());
+	app.use('/api/search', searchRouter.getRouter());
+	app.use('/api/device', deviceRouter.getRouter());
+	app.use('/api/play', playRouter.getRouter());
+	app.use('/api/control', controlRouter.getRouter());
 };
 
 const setupGlobalMiddleware = async (app: Express) => {

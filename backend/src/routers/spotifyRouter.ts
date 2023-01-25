@@ -1,8 +1,8 @@
-import { Router } from 'express';
+import ErrorHandlingRouter from '../classes/ErrorHandlingRouter.js';
 import { handleSpotifyCallback } from '../services/authService.js';
 import { playSong } from '../services/playService.js';
 
-const spotifyRouter = Router();
+const spotifyRouter = new ErrorHandlingRouter();
 
 spotifyRouter.get('/callback', async (req, res) => {
 	try {

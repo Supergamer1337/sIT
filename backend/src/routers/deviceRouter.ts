@@ -1,7 +1,7 @@
-import { Router } from 'express';
+import ErrorHandlingRouter from '../classes/ErrorHandlingRouter.js';
 import { getDevices } from '../services/deviceService.js';
 
-const deviceRouter = Router();
+const deviceRouter = new ErrorHandlingRouter();
 
 deviceRouter.get('*', async (req, res) => {
 	const devices = await getDevices();

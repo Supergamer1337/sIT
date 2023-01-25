@@ -1,4 +1,4 @@
-import { Router } from 'express';
+import ErrorHandlingRouter from '../classes/ErrorHandlingRouter.js';
 import {
 	nextSong,
 	pausePlayback,
@@ -7,42 +7,26 @@ import {
 	startPlayback
 } from '../services/controlService.js';
 
-const controlRouter = Router();
+const controlRouter = new ErrorHandlingRouter();
 
 controlRouter.get('/pause', async (req, res) => {
-	try {
-		pausePlayback();
-		res.status(200).json({ message: 'Playback paused' });
-	} catch (error) {
-		res.status(500).json({ message: 'Failed to pause playback' });
-	}
+	pausePlayback();
+	res.status(200).json({ message: 'Playback paused' });
 });
 
 controlRouter.get('/play', async (req, res) => {
-	try {
-		startPlayback();
-		res.status(200).json({ message: 'Playback continued' });
-	} catch (error) {
-		res.status(500).json({ message: 'Failed to continue playback' });
-	}
+	startPlayback();
+	res.status(200).json({ message: 'Playback continued' });
 });
 
 controlRouter.get('/next', async (req, res) => {
-	try {
-		nextSong();
-		res.status(200).json({ message: 'Skipped song' });
-	} catch (error) {
-		res.status(500).json({ message: 'Failed to skip song' });
-	}
+	nextSong();
+	res.status(200).json({ message: 'Skipped song' });
 });
 
 controlRouter.get('/previous', async (req, res) => {
-	try {
-		previousSong();
-		res.status(200).json({ message: 'Repeat previous' });
-	} catch (error) {
-		res.status(500).json({ message: 'Failed to skip to previous song' });
-	}
+	previousSong();
+	res.status(200).json({ message: 'Repeat previous' });
 });
 
 controlRouter.post('/volume', async (req, res) => {
@@ -51,12 +35,9 @@ controlRouter.post('/volume', async (req, res) => {
 		return res.status(400).json({ message: 'Volume not specified' });
 	if (typeof volume != 'number')
 		return res.status(400).json({ message: 'Volume needs to be a number' });
-	try {
-		setVolume(volume);
-		res.status(200).json({ message: 'Volume set to ' + volume });
-	} catch (error) {
-		res.status(500).json({ message: 'Failed to set volume' });
-	}
+
+	setVolume(volume);
+	res.status(200).json({ message: 'Volume set to ' + volume });
 });
 
 export default controlRouter;

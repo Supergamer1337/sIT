@@ -9,3 +9,6 @@ export const searchAlbum = async (albumName: string) => {
 export const searchArtist = async (artistName: string) => {
 	return spotifyApi.searchArtists(artistName);
 };
+export const searchPlaylist = async (playlistName: string) => {
+	return spotifyApi.searchPlaylists(playlistName);
+};

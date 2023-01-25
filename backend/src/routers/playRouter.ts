@@ -1,7 +1,12 @@
-import { Router } from 'express';
-import { playAlbum, playArtist, playSong } from '../services/playService.js';
+import ErrorHandlingRouter from '../classes/ErrorHandlingRouter.js';
+import {
+	playAlbum,
+	playArtist,
+	playPlaylist,
+	playSong
+} from '../services/playService.js';
 
-const playRouter = Router();
+const playRouter = new ErrorHandlingRouter();
 
 playRouter.get('/song/:songName', async (req, res) => {
 	const { songName } = req.params;
@@ -18,6 +23,12 @@ playRouter.get('/album/:albumName', async (req, res) => {
 playRouter.get('/artist/:artistName', async (req, res) => {
 	const { artistName } = req.params;
 	const artist = await playArtist(artistName);
+	res.status(200).json(artist);
+});
+
+playRouter.get('/playlist/:playlistName', async (req, res) => {
+	const { playlistName } = req.params;
+	const artist = await playPlaylist(playlistName);
 	res.status(200).json(artist);
 });
 
