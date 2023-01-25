@@ -18,7 +18,7 @@ searchRouter.post('/song', async (req, res) => {
 	res.status(200).json(results);
 });
 
-searchRouter.get('/artist', async (req, res) => {
+searchRouter.post('/artist', async (req, res) => {
 	let { name, amount } = req.body;
 
 	const errors = validateNameAndAmount(name, amount);
@@ -28,7 +28,7 @@ searchRouter.get('/artist', async (req, res) => {
 	res.status(200).json(results);
 });
 
-searchRouter.get('/album', async (req, res) => {
+searchRouter.post('/album', async (req, res) => {
 	let { name, amount } = req.body;
 
 	const errors = validateNameAndAmount(name, amount);
@@ -38,7 +38,7 @@ searchRouter.get('/album', async (req, res) => {
 	res.status(200).json(results);
 });
 
-searchRouter.get('/playlist', async (req, res) => {
+searchRouter.post('/playlist', async (req, res) => {
 	let { name, amount } = req.body;
 
 	const errors = validateNameAndAmount(name, amount);
