@@ -1,6 +1,6 @@
 import { Router } from 'express';
-import { searchSong } from '../services/searchService.js';
 import { handleSpotifyCallback } from '../services/authService.js';
+import { playSong } from '../services/playService.js';
 
 const spotifyRouter = Router();
 
@@ -15,8 +15,8 @@ spotifyRouter.get('/callback', async (req, res) => {
 });
 
 spotifyRouter.get('/crab', async (req, res) => {
-	const rave = await searchSong('crab rave');
-	res.status(200).json(rave);
+	playSong('crab rave');
+	res.status(200).json({ message: 'Now playing: crab rave' });
 });
 
 export default spotifyRouter;

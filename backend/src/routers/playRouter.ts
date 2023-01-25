@@ -20,4 +20,5 @@ playRouter.get('/artist/:artistName', async (req, res) => {
 	const artist = await playArtist(artistName);
 	res.status(200).json(artist);
 });
+
 export default playRouter;

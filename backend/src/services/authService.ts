@@ -1,5 +1,5 @@
-import { spotifyApi } from './apiService.js';
 import fs from 'fs';
+import { spotifyApi } from './apiService.js';
 
 /*
   * Scopes available
@@ -78,7 +78,7 @@ const getSpotifyAuthString = () => {
 	spotifyApi.setClientId(process.env.SPOTIFY_CLIENT_ID);
 	spotifyApi.setClientSecret(process.env.SPOTIFY_CLIENT_SECRET);
 	spotifyApi.setRedirectURI(process.env.SPOTIFY_REDIRECT_URI);
-	return spotifyApi.createAuthorizeURL(scopes, 'aaaaaaaaaaaaaah!');
+	return spotifyApi.createAuthorizeURL(scopes, 'aaaaaaaaaaaaaah!'); // TODO: generate random state
 };
 
 const setAccessAndRefreshTokens = async (

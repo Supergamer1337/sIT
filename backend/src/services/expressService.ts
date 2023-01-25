@@ -1,4 +1,5 @@
 import express, { Express } from 'express';
+import controlRouter from '../routers/controlRouter.js';
 import deviceRouter from '../routers/deviceRouter.js';
 import playRouter from '../routers/playRouter.js';
 import searchRouter from '../routers/searchRouter.js';
@@ -15,4 +16,5 @@ const setupRoutes = async (app: Express) => {
 	app.use('/api/search', searchRouter);
 	app.use('/api/device', deviceRouter);
 	app.use('/api/play', playRouter);
+	app.use('/api/control', controlRouter);
 };

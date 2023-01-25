@@ -1,5 +1,5 @@
-import { setDevice } from './deviceService.js';
 import { spotifyApi } from './apiService.js';
+import { setDevice } from './deviceService.js';
 import { searchAlbum, searchArtist, searchSong } from './searchService.js';
 
 export const playSong = async (songName: string) => {
@@ -7,16 +7,16 @@ export const playSong = async (songName: string) => {
 	if (results === undefined) return;
 	const songURI = results?.body?.tracks?.items[0].uri;
 	if (songURI === undefined) return;
-	await spotifyApi.play({ uris: [songURI] });
 	await setDevice(process.env.DEVICE_ID);
+	await spotifyApi.play({ uris: [songURI] });
 };
 
 export const playAlbum = async (albumName: string) => {
 	const results = await searchAlbum(albumName);
 	if (results === undefined) return;
 	const albumURI = results.body.albums.items[0].uri;
-	await spotifyApi.play({ context_uri: albumURI });
 	await setDevice(process.env.DEVICE_ID);
+	await spotifyApi.play({ context_uri: albumURI });
 	return results;
 };
 
