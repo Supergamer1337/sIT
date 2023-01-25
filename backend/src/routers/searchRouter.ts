@@ -8,41 +8,57 @@ import {
 
 const searchRouter = new ErrorHandlingRouter();
 
-searchRouter.get('/song/:query', async (req, res) => {
-	const { query } = req.params;
+searchRouter.post('/song', async (req, res) => {
+	let { name, amount } = req.body;
 
-	if (!query) return res.status(400).json({ error: 'No query provided' });
+	const errors = validateNameAndAmount(name, amount);
+	if (errors.length > 0) return res.status(400).json({ errors });
 
-	const results = await searchSong(query);
+	const results = await searchSong(name, amount);
 	res.status(200).json(results);
 });
 
-searchRouter.get('/artist/:query', async (req, res) => {
-	const { query } = req.params;
+searchRouter.get('/artist', async (req, res) => {
+	let { name, amount } = req.body;
 
-	if (!query) return res.status(400).json({ error: 'No query provided' });
+	const errors = validateNameAndAmount(name, amount);
+	if (errors.length > 0) return res.status(400).json({ errors });
 
-	const results = await searchArtist(query);
+	const results = await searchArtist(name, amount);
 	res.status(200).json(results);
 });
 
-searchRouter.get('/album/:query', async (req, res) => {
-	const { query } = req.params;
+searchRouter.get('/album', async (req, res) => {
+	let { name, amount } = req.body;
 
-	if (!query) return res.status(400).json({ error: 'No query provided' });
+	const errors = validateNameAndAmount(name, amount);
+	if (errors.length > 0) return res.status(400).json({ errors });
 
-	const results = await searchAlbum(query);
+	const results = await searchAlbum(name, amount);
 	res.status(200).json(results);
 });
 
-searchRouter.get('/playlist/:query', async (req, res) => {
-	const { query } = req.params;
+searchRouter.get('/playlist', async (req, res) => {
+	let { name, amount } = req.body;
 
-	if (!query) return res.status(400).json({ error: 'No query provided' });
+	const errors = validateNameAndAmount(name, amount);
+	if (errors.length > 0) return res.status(400).json({ errors });
 
-	const results = await searchPlaylist(query);
+	const results = await searchPlaylist(name, amount);
 	res.status(200).json(results);
 });
+
+const validateNameAndAmount = (name: string, amount: number) => {
+	const errors = [];
+
+	if (!name) errors.push('No name provided');
+	if (!amount) errors.push('Amount not provided');
+
+	if (typeof amount !== 'number') errors.push('Amount must be a number');
+	if (typeof name !== 'string') errors.push('Name must be a string');
+
+	return errors;
+};
 
 //Should add for playlists, artists, and albums too
 export default searchRouter;
