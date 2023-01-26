@@ -21,3 +21,7 @@ export const setVolume = async (volume: number) => {
 	if (volume < 0) volume = 0;
 	await spotifyApi.setVolume(volume);
 };
+
+export const shuffle = async (state: boolean) => {
+	await spotifyApi.setShuffle(state);
+};

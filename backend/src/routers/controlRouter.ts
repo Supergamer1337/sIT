@@ -4,7 +4,8 @@ import {
 	pausePlayback,
 	previousSong,
 	setVolume,
-	startPlayback
+	startPlayback,
+	shuffle
 } from '../services/controlService.js';
 
 const controlRouter = new ErrorHandlingRouter();
@@ -38,6 +39,16 @@ controlRouter.post('/volume', async (req, res) => {
 
 	setVolume(volume);
 	res.status(200).json({ message: 'Volume set to ' + volume });
+});
+
+controlRouter.post('/shuffle', async (req, res) => {
+	const { state } = req.body;
+	if (state === undefined)
+		return res.status(400).json({ message: 'State not specified' });
+	if (typeof state != 'boolean')
+		return res.status(400).json({ message: 'State needs to be a boolean' });
+	shuffle(state);
+	res.status(200).json({ message: `Shuffle set to ${state ? 'on' : 'off'}` });
 });
 
 export default controlRouter;

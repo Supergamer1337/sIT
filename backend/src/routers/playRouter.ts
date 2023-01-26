@@ -39,7 +39,7 @@ playRouter.post('/artist', async (req, res) => {
 });
 
 playRouter.post('/playlist', async (req, res) => {
-	const { playlistURI } = req.params;
+	const { playlistURI } = req.body;
 
 	if (!playlistURI || typeof playlistURI !== 'string')
 		return res.status(400).json({ errors: ['No playlist URI provided'] });

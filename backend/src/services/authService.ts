@@ -93,11 +93,15 @@ const setAccessAndRefreshTokens = async (
 };
 
 const periodicallyRefreshAccessToken = async () => {
+	const MAX_TRIES = 4;
+	const HOUR = 1000 * 60 * 60;
+	const OFFSET = 1000 * 10; // 10 seconds offset in case of network latency
+	const INTERVAL_TIME = HOUR / MAX_TRIES - OFFSET;
+
 	let tries = 0;
-	const fifteenMinutes = 1000 * 60 * 15;
-	setInterval(fifteenMinutes, async () => {
+	setInterval(INTERVAL_TIME, async () => {
 		tries = await refreshAccessToken(tries);
-		if (tries > 4) {
+		if (tries >= MAX_TRIES) {
 			process.exit(1);
 		}
 	});
