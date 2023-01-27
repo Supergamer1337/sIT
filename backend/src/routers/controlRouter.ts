@@ -5,7 +5,8 @@ import {
 	previousSong,
 	setVolume,
 	startPlayback,
-	shuffle
+	shuffle,
+	repeat
 } from '../services/controlService.js';
 
 const controlRouter = new ErrorHandlingRouter();
@@ -49,6 +50,21 @@ controlRouter.post('/shuffle', async (req, res) => {
 		return res.status(400).json({ message: 'State needs to be a boolean' });
 	shuffle(state);
 	res.status(200).json({ message: `Shuffle set to ${state ? 'on' : 'off'}` });
+});
+controlRouter.post('/repeat', async (req, res) => {
+	const { state } = req.body;
+	if (state === undefined)
+		return res.status(400).json({ message: 'State not specified' });
+	if (typeof state != 'number')
+		return res.status(400).json({ message: 'State needs to be a number' });
+	repeat(state);
+	res
+		.status(200)
+		.json({
+			message: `Repeat set to ${
+				state == 0 ? 'off' : state == 1 ? 'track' : 'context'
+			}`
+		});
 });
 
 export default controlRouter;

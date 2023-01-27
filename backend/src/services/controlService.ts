@@ -25,3 +25,10 @@ export const setVolume = async (volume: number) => {
 export const shuffle = async (state: boolean) => {
 	await spotifyApi.setShuffle(state);
 };
+
+export const repeat = async (state: number) => {
+	if (state > 2) state = 2;
+	if (state < 0) state = 0;
+	const loopState: any = ['off', 'track', 'context'];
+	await spotifyApi.setRepeat(loopState[state]);
+};
