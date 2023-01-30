@@ -1,20 +1,6 @@
 import type { NextFunction, Request, RequestHandler, Response } from 'express';
 import { Router, RouterOptions } from 'express';
 
-/**
- * @class ErrorHandlingRouter
- * @extends Router
- * @description
- * A router that handles errors thrown by the handlers it contains.
- * @param {RouterOptions} [options] - The options to pass to the router.
- * @example
- * const router = new ErrorHandlingRouter()
- * router.get('/', (req, res) => {
- *  throw new Error('Something went wrong')
- * })
- * @author Felix Bjerhem Aronsson <felix.b.aronsson@gmail.com>
- * @author Esaias Cronelius <esaias@cronelius.se>
- */
 class ErrorHandlingRouter {
 	// The underlying Express router.
 	router: Router;

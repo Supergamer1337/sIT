@@ -1,0 +1,16 @@
+.playBar {
+	width: calc(100% + 4px);
+	height: 4rem;
+	background-color: var(--footer-background);
+	position: absolute;
+	margin: auto;
+	bottom: 0px;
+	left: -2px;
+	display: block;
+	color: var(--light-background);
+  border-radius: 0.5rem 0.5rem 0 0;
+  padding: 0.5rem;
+  border-top: 2px solid var(--darkgray-500);
+  border-left: 2px solid var(--darkgray-500);
+  border-right: 2px solid var(--darkgray-500);
+}

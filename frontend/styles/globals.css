@@ -1,6 +1,9 @@
 :root {
-  --dark-background: #1e1e1e;
-  --light-background: var(--lightgray-100);
+  --white: #fff;
+  --black: #000;
+
+  --dark-background: var(--darkgray-900);
+  --light-background: var(--lightgray-300);
 
   --font-sans: 'Poppins', sans-serif;
   --font-serif: 'Playfair Display', serif;
@@ -52,6 +55,11 @@
   --green-300: #a7ebbe;
   --green-500: #09da50;
   --green-900: #0c6b2c;
+
+
+  --object-background: var(--lightgray-100);
+  --highlight-1: var(--turquoise-400);
+  --footer-background: var(--lightgray-100);
 }
 
 * {
@@ -64,6 +72,7 @@
 body {
   background-color: var(--light-background);
   color: var(--darkgray-800);
+  overflow: hidden;
 }
 
 h1 {
@@ -83,8 +92,19 @@ h2 {
 }
 
 @media (prefers-color-scheme: dark) {
+  :root {
+    --object-background: var(--darkgray-700);
+    --highlight-1: var(--turquoise-800);
+    --footer-background: var(--darkgray-800);
+  }
+
+  * {
+    /* color: var(--white) */
+  }
+
   body {
     background-color: var(--dark-background);
     color: var(--lightgray-100);
+
   }
 }
