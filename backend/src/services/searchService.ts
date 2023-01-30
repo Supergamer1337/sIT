@@ -12,7 +12,11 @@ export const searchSong = async (songName: string, amount: number) => {
 
 	return tracks.map((song) => ({
 		name: song.name,
-		uri: song.uri
+		uri: song.uri,
+		artists: song.artists.map((artist) => ({
+			artist: artist.name
+		})),
+		album: song.album.name
 	}));
 };
 

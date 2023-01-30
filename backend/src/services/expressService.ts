@@ -23,4 +23,12 @@ const setupRoutes = async (app: Express) => {
 const setupGlobalMiddleware = async (app: Express) => {
 	app.use(express.urlencoded({ extended: true }));
 	app.use(express.json());
+	app.use((req, res, next) => {
+		const authHeader = req.headers.authorization;
+		if (process.env.GAMMA_AUTH === 'false') next();
+		else if (authHeader && authHeader === 'secretPass') next();
+		else {
+			res.status(401).send('Unauthorized');
+		}
+	});
 };
