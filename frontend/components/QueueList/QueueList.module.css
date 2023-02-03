@@ -1,0 +1,11 @@
+.queueWrapper {
+	background-color: var(--darkgray-700);
+	position:relative;
+	height: 2*var(--queue-width);
+	width:var(--queue-width);
+	top:-2*var(--queue-width);
+	z-index:-1;
+}
+.closeIcon {
+	left:calc(var(--queue-width) - 2rem);
+}

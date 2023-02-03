@@ -60,6 +60,10 @@
   --object-background: var(--lightgray-100);
   --highlight-1: var(--turquoise-400);
   --footer-background: var(--lightgray-100);
+
+
+
+  --queue-width: 20rem;
 }
 
 * {
@@ -107,4 +111,14 @@ h2 {
     color: var(--lightgray-100);
 
   }
+}
+
+.icon {
+  height: 3rem;
+	width: 3rem;
+	color:var(--turquoise-500);
+	cursor: pointer;
+}
+.icon :hover {
+	color:var(--turquoise-700);
 }

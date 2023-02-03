@@ -1,14 +1,3 @@
-.playButton {
-	border-style: none;
-	background-color: rgba(0,0,0,0);
-}
-
-
-.playIcon {
-	height: 3rem;
-	width: 3rem;
-	color:var(--turquoise-500);
-}
-.playIcon :hover {
-	color:var(--turquoise-700);
+.playControllerBox {
+width:10rem;
 }

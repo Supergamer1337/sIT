@@ -4,24 +4,40 @@ import FastRewindIcon from "@mui/icons-material/FastRewind";
 import FastForwardIcon from "@mui/icons-material/FastForward";
 import { useState } from "react";
 import styles from "./PlayController.module.css";
+import { pauseMusic, playMusic } from "@/functionality/MusicController";
 
 const PlayController = () => {
   const [isPlaying, setIsPlaying] = useState(false);
   return (
-    <>
-      <FastRewindIcon className={styles.playIcon} />
-      <button
+    <div className={styles.playControllerBox}>
+      <FastRewindIcon
+        className="icon"
         onClick={() => setIsPlaying(!isPlaying)}
-        className={styles.playButton}
-      >
-        {isPlaying ? (
-          <PauseIcon className={styles.playIcon} />
-        ) : (
-          <PlayArrowIcon className={styles.playIcon} />
-        )}
-      </button>
-      <FastForwardIcon className={styles.playIcon} />
-    </>
+      />
+
+      {isPlaying ? (
+        <PauseIcon
+          className="icon"
+          onClick={() => {
+            setIsPlaying(false);
+            pauseMusic();
+          }}
+        />
+      ) : (
+        <PlayArrowIcon
+          className="icon"
+          onClick={() => {
+            setIsPlaying(true);
+            playMusic();
+          }}
+        />
+      )}
+
+      <FastForwardIcon
+        className="icon"
+        onClick={() => setIsPlaying(!isPlaying)}
+      />
+    </div>
   );
 };
 export default PlayController;
