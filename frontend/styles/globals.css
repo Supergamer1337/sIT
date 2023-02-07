@@ -60,7 +60,7 @@
   --object-background: var(--lightgray-100);
   --highlight-1: var(--turquoise-400);
   --footer-background: var(--lightgray-100);
-
+  --text-color:var(--black);
 
 
   --queue-width: 20rem;
@@ -100,6 +100,7 @@ h2 {
     --object-background: var(--darkgray-700);
     --highlight-1: var(--turquoise-800);
     --footer-background: var(--darkgray-800);
+    --text-color:var(--white);
   }
 
   * {
@@ -108,7 +109,7 @@ h2 {
 
   body {
     background-color: var(--dark-background);
-    color: var(--lightgray-100);
+    color: var(--text-color);
 
   }
 }
