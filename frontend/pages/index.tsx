@@ -1,6 +1,8 @@
 import Head from "next/head";
 import { Inter } from "@next/font/google";
 import PlayBar from "@/components/PlayBar/PlayBar";
+import SongContainer from "@/components/SongContainer/SongContainer";
+import Header from "@/components/Header/Header";
 
 export default function Home() {
   return (
@@ -11,6 +13,7 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
+      <Header />
       <main></main>
       <PlayBar />
     </>

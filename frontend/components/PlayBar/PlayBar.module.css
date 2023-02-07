@@ -1,6 +1,4 @@
 .playBar {
-	flex-direction: row;
-	justify-content: space-between;
 	width: calc(100% + 4px);
 	height: 4rem;
 	background-color: var(--footer-background);
@@ -8,7 +6,6 @@
 	margin: auto;
 	bottom: 0px;
 	left: -2px;
-	display: flex;
 	color: var(--light-background);
   border-radius: 0.5rem 0.5rem 0 0;
   padding: 0.5rem;
@@ -16,4 +13,5 @@
   border-left: 2px solid var(--darkgray-500);
   border-right: 2px solid var(--darkgray-500);
   z-index:3;
+  display:block;
 }

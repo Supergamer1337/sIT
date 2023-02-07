@@ -58,6 +58,7 @@
 
 
   --object-background: var(--lightgray-100);
+  --object-border: 2px solid var(--darkgray-700);
   --highlight-1: var(--turquoise-400);
   --footer-background: var(--lightgray-100);
   --text-color:var(--black);
@@ -98,6 +99,7 @@ h2 {
 @media (prefers-color-scheme: dark) {
   :root {
     --object-background: var(--darkgray-700);
+    --object-border: 2px solid var(--lightgray-700);
     --highlight-1: var(--turquoise-800);
     --footer-background: var(--darkgray-800);
     --text-color:var(--white);

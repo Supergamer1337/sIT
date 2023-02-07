@@ -12,7 +12,7 @@ const QueueList = () => {
           onClick={() => {
             setView(!view);
           }}
-          className="icon"
+          className={`${styles.queueIcon} icon`}
         />
       ) : (
         <div className={styles.queueWrapper}>

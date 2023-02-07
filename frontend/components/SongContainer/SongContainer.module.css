@@ -1,0 +1,9 @@
+.container {
+	background-color: var(--object-background);
+	border: var(--object-border);
+	width:var(--queue-width);
+	height:5rem;
+	margin: 1rem;
+	padding:0.5rem;
+	border-radius: 0.3rem;
+}
