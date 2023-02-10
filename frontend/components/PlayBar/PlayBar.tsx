@@ -5,7 +5,6 @@ const PlayBar = () => {
   return (
     <div className={styles.playBar}>
       <PlayController /> Now playing: music
-      <QueueList />
     </div>
   );
 };

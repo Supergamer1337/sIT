@@ -1,23 +1,15 @@
 .queueWrapper {
 	background-color: var(--object-background);
-	position: fixed;
 	height: calc(100vh - 4rem);
 	width:var(--queue-width);
 	top:0;
-	right:0;
+	left:0;
 	z-index:-1;
 	display: block;
 	border-left: 2px solid var(--darkgray-500);
+	flex: 0 0 auto;
 }
 .closeIcon {
 	right:1rem;
 	position:fixed;
-
-
-}
-
-.queueIcon {
-	position:absolute;
-	bottom:0.2rem;
-	right:1rem;
 }

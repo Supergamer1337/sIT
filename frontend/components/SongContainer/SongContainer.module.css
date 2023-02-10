@@ -1,7 +1,7 @@
 .container {
 	background-color: var(--object-background);
 	border: var(--object-border);
-	width:var(--queue-width);
+	width:calc(2*var(--queue-width));
 	height:5rem;
 	margin: 1rem;
 	padding:0.5rem;
