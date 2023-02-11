@@ -1,54 +1,79 @@
 import { useCallback, useEffect, useState } from 'react'
 import SearchBar from '../SearchBar/SearchBar'
+import SongResult from "../SongResult/SongResult";
 
 export interface SearchInterface {
-	setSearch: (search: boolean) => void
+  setSearch: (search: boolean) => void;
 }
 
 const searchHook = (searchValue: string) => {
-	const [data, setData] = useState(null)
-	const [error, setError] = useState(null)
-	const [loading, setLoading] = useState(false)
+  const [data, setData] = useState<null | any>(null);
+  const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(false);
 
-	useCallback(async () => {
-		setError(null)
-		setLoading(true)
-		try {
-			const response = await fetch(`http://localhost:8080/api/search/song`, {
-				method: 'POST',
-				body: JSON.stringify({ name: searchValue, amount: 3 })
-			})
-			const data = await response.json()
-			setData(data)
-		} catch (e: any) {
-			setError(e)
-		}
-		setLoading(false)
-	}, [searchValue])
+  useEffect(() => {
+    setData(null);
+    setError(null);
 
-	return { data, error, loading }
-}
+    if (searchValue === "") return setLoading(false);
+
+    setLoading(true);
+    const fetchData = async () => {
+      try {
+        const response = await fetch(`http://localhost:8080/api/search/song`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ name: searchValue, amount: 10 }),
+        });
+        const json = await response.json();
+        setData(json);
+      } catch (error: any) {
+        setError(error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchData();
+  }, [searchValue]);
+
+  return { data, error, loading };
+};
 
 const Search = ({ setSearch }: SearchInterface) => {
-	const [searchText, setSearchText] = useState('')
-	const { data, error, loading } = searchHook(searchText)
+  const [searchText, setSearchText] = useState("");
+  const { data, error, loading } = searchHook(searchText);
 
-	useEffect(() => {
-		console.log('-------')
-		console.log(data)
-		console.log(error)
-		console.log(loading)
-	}, [data, error, loading])
+  useEffect(() => {
+    console.log("-------");
+    console.log(data);
+    console.log(error);
+    console.log(loading);
+  }, [data, error, loading]);
 
-	return (
-		<div>
-			<SearchBar
-				setSearch={setSearch}
-				searchText={searchText}
-				setSearchText={setSearchText}
-			/>
-		</div>
-	)
-}
+  return (
+    <div>
+      <SearchBar
+        setSearch={setSearch}
+        searchText={searchText}
+        setSearchText={setSearchText}
+      />
+
+      {data
+        ? data.map((song: any) => (
+            <SongResult
+              name={song.name}
+              album={song.album}
+              artist={song.artists[0].artist}
+              length={"3"}
+              songUri={song.uri}
+            />
+          ))
+        : null}
+    </div>
+  );
+};
 
 export default Search

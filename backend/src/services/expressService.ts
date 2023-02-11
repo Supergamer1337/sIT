@@ -4,9 +4,11 @@ import deviceRouter from '../routers/deviceRouter.js';
 import playRouter from '../routers/playRouter.js';
 import searchRouter from '../routers/searchRouter.js';
 import spotifyRouter from '../routers/spotifyRouter.js';
+import cors from 'cors';
 
 export const createServer = async () => {
 	const app = express();
+	app.use(cors());
 	setupGlobalMiddleware(app);
 	setupRoutes(app);
 	return app;
