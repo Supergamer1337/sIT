@@ -1,7 +1,5 @@
 import Head from "next/head";
-import { Inter } from "@next/font/google";
 import PlayBar from "@/components/PlayBar/PlayBar";
-import SongContainer from "@/components/SongContainer/SongContainer";
 import Header from "@/components/Header/Header";
 import QueueList from "@/components/QueueList/QueueList";
 import styles from "./index.module.css";

@@ -7,8 +7,26 @@
 	padding:0.5rem;
 	border-radius: 0.3rem;
 	display: flex;
+	overflow:hidden;
 }
 
-.resultIcons {
+.resultIcon {
+ margin-right: 0.5rem;
+ right:0;
+}
+.resultInfoContainer {
+	display: flex;
+	flex-direction: column;
+	justify-content: left;
+	align-items: flex-start;
+	width: calc(1.5*var(--queue-width));
+	overflow:hidden;
+}
 
+.resultIconContainer {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-around;
+	align-items: center;
+	width: calc(0.5*var(--queue-width));
 }
