@@ -5,6 +5,7 @@ import playRouter from '../routers/playRouter.js';
 import searchRouter from '../routers/searchRouter.js';
 import spotifyRouter from '../routers/spotifyRouter.js';
 import cors from 'cors';
+import queueRouter from '../routers/queueRouter.js';
 
 export const createServer = async () => {
 	const app = express();
@@ -20,6 +21,7 @@ const setupRoutes = async (app: Express) => {
 	app.use('/api/device', deviceRouter.getRouter());
 	app.use('/api/play', playRouter.getRouter());
 	app.use('/api/control', controlRouter.getRouter());
+	app.use('/api/queue', queueRouter.getRouter());
 };
 
 const setupGlobalMiddleware = async (app: Express) => {

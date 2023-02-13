@@ -31,7 +31,7 @@ const playSong = async (song: string) => {
 
 const addQueue = async (song: string) => {
   try {
-    const response = await fetch(`http://localhost:8080/api/play/song`, {
+    const response = await fetch(`http://localhost:8080/api/queue/song`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -40,9 +40,9 @@ const addQueue = async (song: string) => {
     });
     const json = await response.json();
     if (json.status === 200) {
-      console.log("Song played");
+      console.log("Song queued");
     } else {
-      throw Error("Song could not be played");
+      throw Error("Song could not be queued");
     }
   } catch (error: any) {
     console.log(error);
@@ -71,7 +71,12 @@ const SongContainer = ({
             playSong(songUri);
           }}
         />
-        <QueueIcon className={`icon ${styles.resultIcon}`} onClick={() => {}} />
+        <QueueIcon
+          className={`icon ${styles.resultIcon}`}
+          onClick={() => {
+            addQueue(songUri);
+          }}
+        />
       </div>
     </div>
   );
