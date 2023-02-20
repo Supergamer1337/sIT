@@ -4,29 +4,29 @@ import Search from '../Search/Search'
 import styles from './Header.module.css'
 
 const useHeightAnimation = () => {
-	const titleRef = useRef<HTMLDivElement>(null)
+	const heightRef = useRef<HTMLDivElement>(null)
 	const [initialisedHeight, setInitialisedHeight] = useState(false)
 
 	useEffect(() => {
-		if (!titleRef.current) return
-		titleRef.current.style.setProperty(
+		if (!heightRef.current) return
+		heightRef.current.style.setProperty(
 			'--maxHeight',
-			titleRef.current.getBoundingClientRect().height + 'px'
+			heightRef.current.getBoundingClientRect().height + 'px'
 		)
 		setInitialisedHeight(true)
 	}, [])
 
-	return { titleRef, initialisedHeight }
+	return { heightRef, initialisedHeight }
 }
 
 const Header = () => {
 	const [search, setSearch] = useState(false)
-	const { titleRef, initialisedHeight } = useHeightAnimation()
+	const { heightRef, initialisedHeight } = useHeightAnimation()
 
 	return (
 		<header>
 			<div
-				ref={titleRef}
+				ref={heightRef}
 				className={
 					// I don't like this ternary, but it works. FIX: Refactor
 					initialisedHeight
