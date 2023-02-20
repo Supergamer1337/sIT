@@ -1,0 +1,36 @@
+.titleShown {
+	animation-name: fadeIn;
+	animation-duration: 0.3s;
+	animation-fill-mode: forwards;
+	animation-timing-function: ease-out;
+}
+
+.titleHidden {
+	animation-name: fadeOut;
+	animation-duration: 0.3s;
+	animation-fill-mode: forwards;
+	animation-timing-function: ease-out;
+}
+
+@keyframes fadeOut {
+	0% {
+		opacity: 1;
+		height: var(--maxHeight);
+	}
+	100% {
+		opacity: 0;
+		height: 0;
+		visibility: hidden;
+	}
+}
+
+@keyframes fadeIn {
+	0% {
+		opacity: 0;
+		height: 0;
+	}
+	100% {
+		opacity: 1;
+		height: var(--maxHeight);
+	}
+}
