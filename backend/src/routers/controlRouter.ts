@@ -12,22 +12,40 @@ import {
 const controlRouter = new ErrorHandlingRouter();
 
 controlRouter.get('/pause', async (req, res) => {
-	pausePlayback();
+	try {
+		await pausePlayback();
+	} catch (e) {
+		return res.status(500).json({ message: 'Failed to pause playback' });
+	}
 	res.status(200).json({ message: 'Playback paused' });
 });
 
 controlRouter.get('/play', async (req, res) => {
-	startPlayback();
+	try {
+		await startPlayback();
+	} catch (e) {
+		return res
+			.status(500)
+			.json({ message: 'Failed to continue/start playback' });
+	}
 	res.status(200).json({ message: 'Playback continued' });
 });
 
 controlRouter.get('/next', async (req, res) => {
-	nextSong();
+	try {
+		await nextSong();
+	} catch (e) {
+		return res.status(500).json({ message: 'Failed to skip song' });
+	}
 	res.status(200).json({ message: 'Skipped song' });
 });
 
 controlRouter.get('/previous', async (req, res) => {
-	previousSong();
+	try {
+		await previousSong();
+	} catch (e) {
+		return res.status(500).json({ message: 'Failed to play previous' });
+	}
 	res.status(200).json({ message: 'Repeat previous' });
 });
 
