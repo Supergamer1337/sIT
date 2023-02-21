@@ -60,6 +60,7 @@ export const handleSpotifyCallback = async (code: string) => {
 	const data = await spotifyApi.authorizationCodeGrant(code);
 	if (data.statusCode == 200) {
 		setAccessAndRefreshTokens(data.body.access_token, data.body.refresh_token);
+		data.body.expires_in = 3600 * 1000;
 		fs.writeFileSync(
 			'token.json',
 			JSON.stringify({ ...data.body, timestamp: Date.now() })
