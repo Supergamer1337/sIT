@@ -45,11 +45,12 @@ export const readSpotifyAuth = async () => {
 	if (fs.existsSync('token.json')) {
 		const auth = fs.readFileSync('token.json');
 		const authJson = JSON.parse(auth.toString());
-		if (authJson.expires_in + authJson.timestamp < Date.now())
+		if (authJson.expires_in + authJson.timestamp > Date.now())
 			return setAccessAndRefreshTokens(
 				authJson.access_token,
 				authJson.refresh_token
 			);
+		console.log('Token expired.');
 	}
 	console.log('No token found.');
 	console.log(`Authorize the app using:\n${getSpotifyAuthString()}`);
