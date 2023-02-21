@@ -27,7 +27,7 @@ export const nextSong = async () => {
   musicController("next");
 };
 
-export const previousSong = () => {
+export const previousSong = async () => {
   musicController("previous");
 };
 

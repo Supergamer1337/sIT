@@ -37,7 +37,8 @@ const scopes = [
 	'user-read-playback-state',
 	'user-modify-playback-state',
 	'user-read-currently-playing',
-	'app-remote-control'
+	'app-remote-control',
+	'streaming'
 ];
 
 export const readSpotifyAuth = async () => {
