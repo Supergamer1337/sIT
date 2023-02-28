@@ -3,6 +3,7 @@
 	flex-direction: row;
 	justify-content: space-evenly;
 	flex-wrap: wrap;
+	width:calc(100vw - var(--queue-width));
 }
 .search {
 	max-width:80vw;
