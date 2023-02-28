@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useState } from 'react'
 import SearchBar from '../SearchBar/SearchBar'
 import SongResult from "../SongResult/SongResult";
+import styles from "./Search.module.css";
 
 export interface SearchInterface {
   setSearch: (search: boolean) => void;
@@ -54,24 +55,25 @@ const Search = ({ setSearch }: SearchInterface) => {
   }, [data, error, loading]);
 
   return (
-    <div>
+    <div className={styles.search}>
       <SearchBar
         setSearch={setSearch}
         searchText={searchText}
         setSearchText={setSearchText}
       />
-
-      {data
-        ? data.map((song: any) => (
-            <SongResult
-              name={song.name}
-              album={song.album}
-              artist={song.artists[0].artist}
-              length={"3"}
-              songUri={song.uri}
-            />
-          ))
-        : null}
+      <div className={styles.searchResultContainer}>
+        {data
+          ? data.map((song: any) => (
+              <SongResult
+                name={song.name}
+                album={song.album}
+                artist={song.artists[0].artist}
+                length={"3"}
+                songUri={song.uri}
+              />
+            ))
+          : null}
+      </div>
     </div>
   );
 };

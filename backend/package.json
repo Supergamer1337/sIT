@@ -24,6 +24,8 @@
 		"cors": "^2.8.5",
 		"dotenv": "^16.0.3",
 		"express": "^4.18.1",
+		"socket.io": "^4.6.1",
+		"spotify-connect-ws": "^0.1.1",
 		"spotify-web-api-node": "^5.0.2"
 	}
 }
