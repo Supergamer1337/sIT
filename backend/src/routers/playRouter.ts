@@ -1,5 +1,6 @@
 import ErrorHandlingRouter from '../classes/ErrorHandlingRouter.js';
 import {
+	getPlayStatus,
 	playAlbum,
 	playArtist,
 	playPlaylist,
@@ -46,6 +47,12 @@ playRouter.post('/playlist', async (req, res) => {
 
 	await playPlaylist(playlistURI);
 	res.status(200).json({ message: 'Sent command to play playlist' });
+});
+playRouter.get('/getState', async (req, res) => {
+	const results = await getPlayStatus();
+	if (!results)
+		return res.status(400).json({ errors: ['Could not get playback status'] });
+	res.status(200).json(results);
 });
 
 export default playRouter;

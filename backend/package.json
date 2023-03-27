@@ -6,7 +6,8 @@
 	"type": "module",
 	"scripts": {
 		"watch": "nodemon --delay 500ms ./dist/index.js",
-		"compile": "tsc -w"
+		"compile": "tsc -w",
+		"dev": "nodemon --delay 500ms ./dist/index.js & tsc -w"
 	},
 	"keywords": [],
 	"author": "",
@@ -25,7 +26,6 @@
 		"dotenv": "^16.0.3",
 		"express": "^4.18.1",
 		"socket.io": "^4.6.1",
-		"spotify-connect-ws": "^0.1.1",
 		"spotify-web-api-node": "^5.0.2"
 	}
 }
