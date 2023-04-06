@@ -21,9 +21,11 @@ export const getPlayStatus = async () => {
 	if (!statusUnformatted) return false;
 	return {
 		name: statusUnformatted.body.item?.name,
+		// @ts-ignore - This does actually work, but the types from the Spotify API seem to be wrong
 		artist: statusUnformatted.body.item?.artists.map(
 			(artist: any) => artist.name
 		),
+		// @ts-ignore - This does actually work, but the types from the Spotify API seem to be wrong
 		album: statusUnformatted.body.item?.album.name,
 		time: {
 			current: statusUnformatted.body.progress_ms,
