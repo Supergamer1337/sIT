@@ -36,3 +36,10 @@ export const initWebsocket = (app: Express) => {
 
 	return server;
 };
+
+export const emitEvent = (
+	event: keyof ServerToClientEvents,
+	data: Parameters<ServerToClientEvents[keyof ServerToClientEvents]>
+) => {
+	io.emit(event, data);
+};
