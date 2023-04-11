@@ -6,6 +6,7 @@ import {
 	playPlaylist,
 	playSong
 } from '../services/playService.js';
+import { emitEvent } from '../services/websocketService.js';
 
 const playRouter = new ErrorHandlingRouter();
 
@@ -16,6 +17,15 @@ playRouter.post('/song', async (req, res) => {
 		return res.status(400).json({ errors: ['No song URI provided'] });
 
 	await playSong(songURI);
+
+	// This is really bad, but it's the only way (without a lot of work) to get the playback state to update
+	// on the client side. Otherwise a race condition occurs where the client gets the same playback state twice
+	setTimeout(async () => {
+		const playStatus = await getPlayStatus();
+		// @ts-ignore
+		if (playStatus) emitEvent('update-playback-state', playStatus);
+	}, 1);
+
 	res.status(200).json({ message: 'Sent command to play song' });
 });
 
