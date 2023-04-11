@@ -1,52 +1,34 @@
+import { apiGet, apiPost } from './api'
+
 const musicController = async (controlType: string) => {
-  try {
-    const response = await fetch(
-      "http://localhost:8080/api/control/" + controlType,
-      {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      }
-    );
-    if (!response) throw Error("Response is empty");
-  } catch (error) {
-    console.error(error);
-  }
-};
+	try {
+		apiGet(`/music/control/${controlType}`)
+	} catch (error) {
+		console.error(error)
+	}
+}
 
 export const playMusic = async () => {
-  musicController("play");
-};
+	musicController('play')
+}
 
 export const pauseMusic = async () => {
-  musicController("pause");
-};
+	musicController('pause')
+}
 
 export const nextSong = async () => {
-  musicController("next");
-};
+	musicController('next')
+}
 
 export const previousSong = async () => {
-  musicController("previous");
-};
+	musicController('previous')
+}
 
 export const startSong = async (songURI: string) => {
-  try {
-    const response = await fetch(`http://localhost:8080/api/play/song`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ songURI: songURI }),
-    });
-    const json = await response.json();
-    if (json.status === 200) {
-      console.log("Song played");
-    } else {
-      throw Error("Song could not be played");
-    }
-  } catch (error: any) {
-    console.log(error);
-  }
-};
+	try {
+		await apiPost('/play/song', { songURI })
+		console.log('Playing song')
+	} catch (error: any) {
+		console.error('Failed to play song with the following error:\n' + error)
+	}
+}
