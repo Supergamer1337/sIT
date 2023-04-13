@@ -2,7 +2,7 @@ import { apiGet, apiPost } from './api'
 
 const musicController = async (controlType: string) => {
 	try {
-		apiGet(`/music/control/${controlType}`)
+		apiGet(`/control/${controlType}`);
 	} catch (error) {
 		console.error(error)
 	}
