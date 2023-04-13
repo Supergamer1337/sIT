@@ -6,7 +6,8 @@ import playRouter from '../routers/playRouter.js';
 import queueRouter from '../routers/queueRouter.js';
 import searchRouter from '../routers/searchRouter.js';
 import spotifyRouter from '../routers/spotifyRouter.js';
-import { initWebsocket } from './websocketService.js';
+import { getPlayStatus } from './playService.js';
+import { emitEvent, initWebsocket } from './websocketService.js';
 
 export const createServer = async () => {
 	const app = express();
@@ -14,6 +15,10 @@ export const createServer = async () => {
 	setupGlobalMiddleware(app);
 	setupRoutes(app);
 	const server = initWebsocket(app);
+	setInterval(async () => {
+		// @ts-ignore
+		emitEvent('update-playback-state', await getPlayStatus());
+	}, 1000);
 	return server;
 };
 
