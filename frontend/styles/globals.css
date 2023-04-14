@@ -61,7 +61,7 @@
 	--highlight-1: var(--turquoise-400);
 	--footer-background: var(--lightgray-100);
 	--text-color: var(--black);
-
+	--optional-text-color: var(--darkgray-600);
 	--queue-width: 20rem;
 }
 
@@ -106,6 +106,7 @@ h2 {
 		--highlight-1: var(--turquoise-800);
 		--footer-background: var(--darkgray-800);
 		--text-color: var(--white);
+		--optional-text-color: var(--lightgray-600);
 	}
 
 	body {

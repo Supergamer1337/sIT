@@ -6,12 +6,15 @@
 	margin: auto;
 	bottom: 0px;
 	left: -2px;
-	color: var(--light-background);
+	color: var(--optional-text-color);
   border-radius: 0.5rem 0.5rem 0 0;
   padding: 0.5rem;
   border-top: 2px solid var(--darkgray-500);
   border-left: 2px solid var(--darkgray-500);
   border-right: 2px solid var(--darkgray-500);
   z-index:3;
-  display:block;
+  display:flex;
+}
+.indent {
+	text-indent:40px;
 }
