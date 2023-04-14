@@ -27,7 +27,7 @@ const PlayBar = () => {
     []
   );
   setInterval(() => {
-    if (nowPlaying.artists) {
+    if (nowPlaying.artists && nowPlaying.name !== playbackState.name) {
       setPlaybackState({
         name: nowPlaying.name,
         artists: nowPlaying.artists.join(", "),
