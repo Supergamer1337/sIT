@@ -6,7 +6,7 @@ import styles from './PlayBar.module.css'
 const PlayBar = () => {
 	const [nowPlaying, setNowPlaying] = useState({
     name: "",
-    artists: [""],
+    artists: "",
     album: "",
   });
 
@@ -15,7 +15,7 @@ const PlayBar = () => {
     (data) => {
       setNowPlaying({
         name: data.name,
-        artists: data.artist,
+        artists: data.artist.join(", "),
         album: data.album,
       });
     },
@@ -29,7 +29,7 @@ const PlayBar = () => {
       <>
         Now playing: {nowPlaying.name}
         <br />
-        by: {nowPlaying.artists.join(", ")} ({nowPlaying.album})
+        by: {nowPlaying.artists} ({nowPlaying.album})
       </>
     </div>
   );
