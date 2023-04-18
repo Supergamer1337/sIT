@@ -2,7 +2,7 @@
 	width: calc(100% + 4px);
 	height: 4rem;
 	background-color: var(--footer-background);
-	position: absolute;
+	position: sticky;
 	margin: auto;
 	bottom: 0px;
 	left: -2px;

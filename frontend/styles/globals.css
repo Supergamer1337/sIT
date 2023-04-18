@@ -79,7 +79,8 @@ main {
 body {
 	background-color: var(--light-background);
 	color: var(--darkgray-800);
-	overflow: hidden;
+	/* overflow: hidden; */
+	overflow-x: hidden;
 }
 
 h1 {

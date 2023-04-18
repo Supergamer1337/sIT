@@ -38,11 +38,15 @@ const PlayBar = () => {
   return (
     <div className={styles.playBar}>
       <PlayController />{" "}
-      <>
-        Now playing: {playbackState.name}
-        <br />
-        by: {playbackState.artists} ({playbackState.album})
-      </>
+      {playbackState.name !== "" ? (
+        <>
+          Now playing: {playbackState.name}
+          <br />
+          by: {playbackState.artists} ({playbackState.album})
+        </>
+      ) : (
+        <>Currently not playing anything</>
+      )}
     </div>
   );
 }
