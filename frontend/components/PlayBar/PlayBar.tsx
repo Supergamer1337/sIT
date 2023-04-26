@@ -7,13 +7,13 @@ const PlayBar = () => {
 	const [nowPlaying, setNowPlaying] = useState<string>('')
 
 	useWebsocketListenAndEmit(
-		'update-playback-state',
-		(data) => {
-			setNowPlaying(data.name)
-		},
-		'get-playback-state',
-		[]
-	)
+    "update-playback-state",
+    (data: any) => {
+      setNowPlaying(data.name);
+    },
+    "get-playback-state",
+    []
+  );
 
 	return (
 		<div className={styles.playBar}>
