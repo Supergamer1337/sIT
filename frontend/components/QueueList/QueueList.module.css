@@ -8,6 +8,7 @@
 	display: block;
 	border-right: var(--object-border);
 	flex: 0 0 auto;
+	position:sticky;
 }
 .closeIcon {
 	right: 1rem;

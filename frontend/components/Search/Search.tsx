@@ -26,7 +26,10 @@ const searchHook = (searchValue: string) => {
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify({ name: searchValue, amount: 10 }),
+          body: JSON.stringify({
+            name: searchValue,
+            amount: 20 /* document.body.clientHeight / 50 */, // The formula works, kind of, leave it commented out until further improved
+          }),
         });
         const json = await response.json();
         setData(json);

@@ -4,6 +4,7 @@
 	justify-content: space-evenly;
 	flex-wrap: wrap;
 	width:calc(100vw - var(--queue-width));
+	overflow-y: scroll;
 }
 .search {
 	max-width:80vw;
